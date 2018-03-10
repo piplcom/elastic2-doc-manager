@@ -309,8 +309,8 @@ class DocManager(DocManagerBase):
             '_index': index,
             '_type': doc_type,
             '_id': doc_id,
-            '_source': self._formatter.format_document(doc),
-            'pipeline:': 'geoip'
+            'pipeline:': 'geoip',
+            '_source': self._formatter.format_document(doc)
         }
         # Index document metadata with original namespace (mixed upper/lower).
         meta_action = {
@@ -318,8 +318,8 @@ class DocManager(DocManagerBase):
             '_index': self.meta_index_name,
             '_type': self.meta_type,
             '_id': doc_id,
-            '_source': bson.json_util.dumps(metadata),
-            'pipeline:': 'geoip'
+            'pipeline:': 'geoip',
+            '_source': bson.json_util.dumps(metadata)
         }
 
         self.index(action, meta_action, doc, update_spec)
