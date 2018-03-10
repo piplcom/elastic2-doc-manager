@@ -340,18 +340,18 @@ class DocManager(DocManagerBase):
                     '_index': index,
                     '_type': doc_type,
                     '_id': doc_id,
-                    '_source': self._formatter.format_document(doc),
-                    'pipeline:': 'geoip'
+                    'pipeline:': 'geoip',
+                    '_source': self._formatter.format_document(doc)
                 }
                 document_meta = {
                     '_index': self.meta_index_name,
                     '_type': self.meta_type,
                     '_id': doc_id,
+                    'pipeline:': 'geoip',
                     '_source': {
                         'ns': namespace,
                         '_ts': timestamp
-                    },
-                    'pipeline:': 'geoip'
+                    }
                 }
                 yield document_action
                 yield document_meta
@@ -411,6 +411,7 @@ class DocManager(DocManagerBase):
             '_index': index,
             '_type': doc_type,
             '_id': doc_id,
+            'pipeline': 'geoip',
             '_source': doc
         }
         meta_action = {
@@ -418,6 +419,7 @@ class DocManager(DocManagerBase):
             '_index': self.meta_index_name,
             '_type': self.meta_type,
             '_id': doc_id,
+            'pipeline': 'geoip',
             '_source': bson.json_util.dumps(metadata)
         }
 
@@ -432,6 +434,7 @@ class DocManager(DocManagerBase):
             '_op_type': 'delete',
             '_index': index,
             '_type': doc_type,
+            'pipeline': 'geoip',
             '_id': u(document_id)
         }
 
@@ -439,6 +442,7 @@ class DocManager(DocManagerBase):
             '_op_type': 'delete',
             '_index': self.meta_index_name,
             '_type': self.meta_type,
+            'pipeline': 'geoip',
             '_id': u(document_id)
         }
 
